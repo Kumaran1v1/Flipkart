@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="icon" href="./assets/images/flipkart logo.png">
+    <title>Flipkart</title>
+</head>
+<body id="tractor-body">
+  <head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light pr-4">
+      <div class="pl-4">
+      <img src="./assets/images/flipkart logo.png" alt="">
+      </div>
+      <a class="navbar-brand pl-2" href="#">Flipkart</a>
+      <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="">
+        <i class="fa-solid fa-bars"></i>
+       </div>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto pl-3 pr-3">
+          <li class="nav-item active pr-3">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="#">Brand</a>
+          </li>
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="#team">Team</a>
+          </li>
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <div class="nav-btns pl-2">
+          <a class="btn btn-primary" href="#" role="button">SIGN IN</a>
+          <a class="btn btn-primary" href="#" role="button">SIGN UP</a>
+      </div>
+      </div>
+    </nav>
+  </head>
+  <main>
+
+    <section id="add_product">
+      <form action="" class="container">
+
+        <h3 class=" product_title d-flex justify-content-center mt-3">ADD PRODUCT DETAILS</h3>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Product Title <span>*</span> : </label>
+          <input type="text" class="form-control" id="productTitle" placeholder="Enter Your Product Name" onkeyup="ValidateproductTitle()"/>
+          <label id="productTitleError" class="pl-2" style="color: red; display:none">Prodect Title is Required</label>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Description <span>*</span> : </label>
+          <textarea class="form-control" id="productDescription" rows="3" placeholder="Enter Product Description" onkeyup="validateDescription()"></textarea>
+          <label id="productDescriptionError" class="pl-2" style="color: red; display:none">Product Description is Required</label>
+        </div>
+
+        <div class="col-12 d-flex mb-4">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Product Image <span>*</span> : </label>
+          <input class="form-control" type="file" id="formFile" accept="image/*" onchange="loadFile(event)"/>
+          <label id="productImageError" class="pl-2" style="color: red; display:none">Enter valid file</label>
+        </div>
+
+        <div class="col-3 ">
+          <img id="output" src="./img/images.png" style="height: 100px; object-fit:contain;" class="w-100"/>
+      </div>
+      </div>
+
+        <div class="row g-3 align-items-center container d-flex justify-content-center">
+          <div class="col-auto">
+            <label for="" class="form-label">Enter The Original Price<span>*</span> : </label>
+          </div>
+          <div class="col-auto">
+            <input type="number" id="productprice" class="form-control mb-3" placeholder="0.00" onkeyup="validatePrice()"/>
+            <label id="productPriceError" class="pl-2" style="color: red; display:none">Enter valid price</label>
+          </div>
+          
+          <div class="col-5">
+            <div class="mb-3" onchange="validateDiscountType(event)">
+                <label class="form-label fw-bold">discount<span class="mx-1 fs-5" style="color:orangered;">*</span>:</label>
+                <select class="form-select" aria-label="Default select example" id="discountType" >
+                    <option selected value="">discount type</option>
+                    <option value="1">percentage%</option>
+                    <option value="2">Float</option>
+                </select>
+                <span id="discountTypeError" style="display: none; color: red;">* select discount type</span>
+              </div>
+        </div>
+    </div>
+    <div class="col-12 d-flex flex-lg-row flex-column gap-lg-5 gap-4 justify-content-center">
+        <div class="col-lg-5 col-12">
+            <div class="mb-lg-3 mb-0">
+                <label class="form-label fw-bold">discount Price<span class="mx-1 fs-5" style="color:orangered;">*</span>:</label><br>
+                <input type="number" class="form-control" id="productdiscount" placeholder="0.00" onkeyup="validatediscount()">
+                <span id="productdiscountError" style="display: none;">* Enter discount</span>
+              </div>
+        </div>
+        <div class="col-5">
+            <div class="mb-3 mt-lg-1 mt-0">
+                <label class="form-label fw-bold">Sales Price :</label><br>
+                <input type="number" class="form-control" readonly id="salesPrice" placeholder="0.00">
+              </div>
+        </div>
+        
+    </div>
+
+        <div class="d-grid gap-2 mb-4 d-flex justify-content-center">
+          <button class="btn btn-primary" onclick="validate(event)" type="button">Add Product</button>
+        </div>
+        
+      </form>
+
+    </section>
+  </main>
+  <footer>
+    <section id="footer-bottam">
+      <div class="container footer-bottom clearfix pt-3 pb-3 ">
+        <div class="copyright">
+          © Copyright <strong><span>Agro Machins</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="#">KUMARAN V</a>
+        </div>
+      </div>
+    </section>
+  </footer>
+</body>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+</html>
+
+<script>
+  // =============================================product title=============================================
+  function ValidateproductTitle() {
+    var prodTitle = document.getElementById('productTitle').value;
+    if (prodTitle) {
+      if (prodTitle.length > 2) {
+        document.getElementById('productTitle').style = "border : 3px solid green;";
+        document.getElementById('productTitleError').style = "display:none;";
+        return true;
+      }
+      else {
+        document.getElementById('productTitle').style = "border : 3px solid red";
+        document.getElementById('productTitleError').style = "display:block;";
+        document.getElementById('productTitleError').innerHTML = "*Product Title length should be greater than 2";
+        return false;
+      }
+    }
+    else {
+      document.getElementById('productTitle').style = "border : 2px solid red";
+      document.getElementById('productTitleError').style = "display:block";
+      document.getElementById('productTitleError').innerHTML = "* Product title is Required";
+      return false;
+    }
+  }
+// =========================================== description =====================================
+  function validateDescription(){
+    var prodDesc = document.getElementById('productDescription').value;
+    if(prodDesc){
+        if(prodDesc.length > 15) {
+            document.getElementById('productDescription').style="border :3px solid green";
+            document.getElementById('productDescriptionError').style="display:none";
+            return true;
+        }
+        else{
+            document.getElementById('productDescription').style="border:3px solid red";
+            document.getElementById('productDescriptionError').style="display:block";
+            document.getElementById('productDescriptionError').innerHTML="*Product Description length should be greater than 15";
+            return false;
+        }
+    }
+    else{
+        document.getElementById('productDescription').style="border:3px solid red";
+        document.getElementById('productDescriptionError').style="display:block";
+        document.getElementById('productDescriptionError').innerHTML = "* Product discribe cannont be empty";
+        return false;
+    }
+  }
+
+// ================================================== product img =====================
+function imgCheck() {
+    let imgFile = document.getElementById('formFile').files[0];
+    if (imgFile) {
+      if (checkExtension(imgFile)) {
+
+        document.getElementById('formFile').style = "border : 3px solid green;";
+        document.getElementById('productImageError').style = "display:none;";
+       return true;
+      }
+    }
+    else {
+      document.getElementById('formFile').style = "border : 3px solid red;";
+      document.getElementById('productImageError').style = "display:block;";
+      document.getElementById('productImageError').innerHTML = "* Image cannot be Empty";
+      return false;
+    }
+  }
+
+function loadFile(event){
+
+var imgFile = event.target.files[0]
+var output = document.getElementById('output');
+
+if (imgFile) {
+  document.getElementById('formFile').style = "border : 3px solid green;";
+  document.getElementById('productImageError').style = "display:none;";
+}
+else {
+  document.getElementById('formFile').style = "border : 3px solid red;";
+  document.getElementById('productImageError').style = "display:block;";
+  document.getElementById('productImageError').innerHTML = "* Image cannot be Empty";
+}
+
+if (checkExtension(imgFile)) {
+  output.src = URL.createObjectURL(imgFile);
+  output.onload = function () {
+    URL.revokeObjectURL(output.src)
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const imageData = event.target.result;
+    localStorage.setItem('imageData', imageData);
+  };
+  reader.readAsDataURL(imgFile);
+}
+}
+
+function checkExtension(imgFile) {
+    var extension = imgFile.type.split('/')[1].toLowerCase();
+    if (extension == 'jpg' || extension == 'png' || extension == 'jpeg') {
+      document.getElementById('formFile').style = "border : 3px solid green;";
+      document.getElementById('productImageError').style = "display:none;";
+      return true;
+    }
+    else {
+      document.getElementById('formFile').style = "border : 3px solid red;";
+      document.getElementById('productImageError').style = "display:block;";
+      document.getElementById('productImageError').innerHTML = "* Image extension should be jpg, png, jpeg";
+      return false;
+    }
+
+  }
+
+// ====================================================================================
+function validatePrice() {
+    let productPrice = document.getElementById('productprice').value;
+    if (productPrice) {
+      if (productPrice > 1) {
+        document.getElementById('productprice').style = "border : 3px solid green";
+        document.getElementById('productPriceError').style = "display:none;";
+       return true;
+
+      }
+      else {
+        document.getElementById('productprice').style = "border : 2px solid red";
+        document.getElementById('productPriceError').style = "display:block;";
+        document.getElementById('productPriceError').innerHTML = "* Enter Price >1";
+        return false;
+      }
+
+    }
+    else {
+      document.getElementById('productprice').style = "border : 2px solid red";
+      document.getElementById('productPriceError').style = "display:block";
+      document.getElementById('productPriceError').innerHTML = "* Enter price";
+      return false;
+    }
+
+  }
+//   ==================================================================================
+function validateDiscountType() {
+    var discountType = document.getElementById('discountType').value;
+    if (discountType === "") {
+        document.getElementById('discountTypeError').style = "display:block";
+        document.getElementById('discountType').style = "border:3px solid red";
+
+        return false;
+    } else {
+        document.getElementById('discountTypeError').style = "display:none";
+        document.getElementById('discountType').style = "border:3px solid green";
+        return true;
+    }
+}
+
+// ===========================================================================================
+function validatediscount(){
+    let productdiscount = document.getElementById('productdiscount').value;
+    if (productdiscount) {
+      if (productdiscount > 1) {
+        document.getElementById('productdiscount').style = "border : 3px solid green";
+        document.getElementById('productdiscountError').style = "display:none;";
+       return true;
+
+      }
+      else {
+        document.getElementById('productdiscount').style = "border : 3px solid red";
+        document.getElementById('productdiscountError').style = "display:block;";
+        document.getElementById('productdiscountError').innerHTML = "* Enter Price >1";
+        return false;
+      }
+
+    }
+    else {
+      document.getElementById('productdiscount').style = "border : 3px solid red";
+      document.getElementById('productdiscountError').style = "display:block";
+      document.getElementById('productdiscountError').innerHTML = "* Enter discount";
+      return false;
+    }
+}
+
+function calculateSalesPriceOnChange() {
+  var productPrice = parseFloat(document.getElementById('productprice').value);
+  var discountType = document.getElementById('discountType').value;
+  var discountValue = parseFloat(document.getElementById('productdiscount').value);
+  var salesPrice = 0;
+
+  if (discountType === "1") { // Percentage discount
+      salesPrice = productPrice - (productPrice * (discountValue / 100));
+  } else if (discountType === "2") { // Float discount
+      salesPrice = productPrice - discountValue;
+  }
+
+  // Display the calculated sales price
+  document.getElementById('salesPrice').value = salesPrice.toFixed(2); // Assuming 2 decimal places for currency
+}
+
+// Bind the onchange event to trigger the calculation
+document.getElementById('productprice').onchange = calculateSalesPriceOnChange;
+document.getElementById('productdiscount').onchange = calculateSalesPriceOnChange;
+document.getElementById('discountType').onchange = calculateSalesPriceOnChange;
+
+// ====================================================================================
+  function validate(event) {
+  var isValidateproductTitle = ValidateproductTitle();
+  var isvalidateDescription = validateDescription();
+  var isValidImg = imgCheck();
+  var isValidPrice = validatePrice();
+  var isValidDiscountType = validateDiscountType();
+  var isvalidatediscount = validatediscount();
+  var iscalculateSalesPriceOnChange = calculateSalesPriceOnChange(); 
+
+  if (isValidateproductTitle && isvalidateDescription && isValidImg && validatePrice && validateDiscountType && validatediscount && calculateSalesPriceOnChange) {
+      // Your submission logic here
+     
+      localStorage.setItem('productTitle',productTitle.value)
+      localStorage.setItem('productDescription',productDescription.value)
+      localStorage.setItem('productprice',productprice.value)
+      localStorage.setItem('salesPrice',salesPrice.value)
+      localStorage.setItem('productdiscount',productdiscount.value)
+      window.location.href='product.html';
+      return true;
+  } else {
+      return false;
+  }
+}
+</script>
+<!-- <script>
+
+
+function product_validation(event) {
+
+  var input_product_name = document.getElementById('input_product_name').value;
+  console.log('PRODUCT NAME : ',input_product_name);
+
+  var product_description = document.getElementById('product_description').value;
+  console.log('PRODUCT DESCRIPTION : ',product_description);
+
+  var product_file = document.getElementById('product_file').value;
+  console.log('PRODUCT IMAGE : ',product_file);
+
+  var input_price = document.getElementById('input_price').value;
+  console.log('PRODUCT PRICE : ',input_price);
+
+  var select_discount = document.getElementById('select_discount').value;
+  console.log('DISCOUNT : ',select_discount);
+
+  var input_maximum_quantity = document.getElementById('input_maximum_quantity').value;
+  console.log('MAXIMUM QUANTITY : ',input_maximum_quantity);
+
+
+
+
+  if(input_product_name){
+    document.getElementById('input_product_name').style="border:1px solid green";
+
+    document.getElementById('product_name_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('input_product_name').style="border:1px solid red";
+
+    document.getElementById('product_name_error').style="display: content;color: red;";
+   }
+
+   if(product_description){
+    document.getElementById('product_description').style="border:1px solid green";
+
+    document.getElementById('product_description_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('product_description').style="border:1px solid red";
+
+    document.getElementById('product_description_error').style="display: content;color: red;";
+   }
+
+   if(product_file){
+    document.getElementById('product_file').style="border:1px solid green";
+
+    document.getElementById('product_file_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('product_file').style="border:1px solid red";
+
+    document.getElementById('product_file_error').style="display: content;color: red;";
+   }
+
+   if(input_price){
+    document.getElementById('input_price').style="border:1px solid green";
+
+    document.getElementById('input_price_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('input_price').style="border:1px solid red";
+
+    document.getElementById('input_price_error').style="display: content;color: red;";
+   }
+
+   if(select_discount){
+    document.getElementById('select_discount').style="border:1px solid green";
+
+    document.getElementById('select_discount_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('select_discount').style="border:1px solid red";
+
+    document.getElementById('select_discount_error').style="display: content;color: red;";
+   }
+
+   if(select_discount){
+    document.getElementById('input_maximum_quantity').style="border:1px solid green";
+
+    document.getElementById('input_maximum_quantity_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('input_maximum_quantity').style="border:1px solid red";
+
+    document.getElementById('input_maximum_quantity_error').style="display: content;color: red;";
+   }
+}
+
+function input_product_name_onch(){
+
+  var input_product_name = event.target.null;
+  console.log('--',input_product_name);
+
+  if(input_product_name){
+    document.getElementById('input_product_name').style="border:1px solid green";
+
+    document.getElementById('product_name_error').style="display:none; content;";
+   }
+   else{
+    document.getElementById('input_product_name').style="border:1px solid red";
+
+    document.getElementById('product_name_error').style="display: content;color: red;";
+   }
+   }
+
+   function input_product_description_onch(){
+    
+    var product_description = event.target.value;
+    console.log('--',product_description);
+
+    if(product_description){
+      document.getElementById('product_description').style="border:1px solid green";
+  
+      document.getElementById('product_description_error').style="display:none; content;";
+     }
+     else{
+      document.getElementById('product_description').style="border:1px solid red";
+  
+      document.getElementById('product_description_error').style="display: content;color: red;";
+     }
+     }
+
+     function input_product_file_onch() {
+      var product_file = event.target.value;
+      console.log('--',product_file);
+
+      console.log('----',event.target.files[0].type);
+      var product_file = event.target.files[0].type;
+      var filenamesplit = product_file.split('/');
+      console.log('file split name  ',filenamesplit);
+      var fileext = filenamesplit[1]
+      console.log('file split name  ',filenamesplit[1]);
+
+      if(product_file){
+
+        if(fileext == 'jpeg' || fileext == 'png' || fileext == 'gif' || fileext == 'jpg'){
+          var reader =new FileReader();
+          reader.onload = function() {
+              var output = document.getElementById('output');
+              output.src = reader.result;
+          };
+          reader.readAsDataURL(event.target.files[0]);
+          document.getElementById('product_file').style="border:1px solid green";
+    
+          document.getElementById('product_file_error').style="display:none; content;";
+      }
+       }
+       else{
+        document.getElementById('product_file').style="border:1px solid red";
+    
+        document.getElementById('product_file_error').style="display: content;color: red;";
+       }
+     }
+
+     function input_price_onch() {
+
+      var input_price = document.getElementById('input_price').value;
+      console.log('--',input_price);
+
+      if(input_price){
+        document.getElementById('input_price').style="border:1px solid green";
+    
+        document.getElementById('input_price_error').style="display:none; content;";
+       }
+       else{
+        document.getElementById('input_price').style="border:1px solid red";
+    
+        document.getElementById('input_price_error').style="display: content;color: red;";
+       }
+     }
+
+     function select_discount_onch() {
+
+      var select_discount = event.target.value;
+      console.log('--',select_discount);
+
+      if(select_discount){
+        document.getElementById('select_discount').style="border:1px solid green";
+    
+        document.getElementById('select_discount_error').style="display:none; content;";
+       }
+       else{
+        document.getElementById('select_discount').style="border:1px solid red";
+    
+        document.getElementById('select_discount_error').style="display: content;color: red;";
+       }
+     }
+
+     function input_maximum_quantity_onch() {
+
+      var input_maximum_quantity = event.target.value;
+      console.log('--',input_maximum_quantity);
+
+      if(select_discount){
+        document.getElementById('input_maximum_quantity').style="border:1px solid green";
+    
+        document.getElementById('input_maximum_quantity_error').style="display:none; content;";
+       }
+       else{
+        document.getElementById('input_maximum_quantity').style="border:1px solid red";
+    
+        document.getElementById('input_maximum_quantity_error').style="display: content;color: red;";
+       }
+     }
+
+</script> -->

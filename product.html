@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d48236184a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Product</title>
+</head>
+
+<body style="text-align: center;">
+    <section>
+        <div class="container py-5">
+            <div class="row m-lg-0 m-3">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4 col-12 p-lg-4 p-3 border border-3 shadow mb-5 bg-light rounded-3 text-dark" id="productView">
+                    <div class="col-12 d-flex justify-content-center p-0 mb-4 pt-3">
+                        <img src="./img/no_img.jpg" id="prodImg" alt="" class="img-fluid border rounded" style=" height: 200px; object-fit:contain;">
+                    </div>
+
+                    <div class="mb-3 px-lg-4 px-3">
+                        <div class="text-start">
+                            <h2 id="newProdTitle" class="fw-bold text- fs-2">product</h2>
+
+                            <p id="newProdDesc" class="text-secondary fs-5"><span>details :</span>product details</p>
+
+                            <p id="originalPrice" class="fw-lighter fw-bold fs-6 "><del style="color: rgb(255, 0, 0);">ORIGINAL PRICE : M.R.P ₹<span class="text-danger" id="originalPriceValue"></span></del></p>
+                        
+                            <p id="discount" class="fw-lighter fw-bold fs-6" style="font-weight: bold;">DISCOUNT : <span id="offerPrecent"></span>%Offer  ₹ <span style="color:green;" id="discountValue"></span></p>
+
+
+
+                            <div class="input-group-prepend">
+                                <button class="input-group-text py-2 bg-light text-Dark" id="btnMinus"><i
+                                        class="fa fa-minus" style="padding: 1px 75px 1px 75px;" onclick="minus()" disabled></i></button>
+                            </div>
+                            <input type="tel" class="form-control text-center" style="height: 33px; text-align:center" id="prodCount" value="1">
+                            <div class="input-group-append">
+                                <button class="input-group-text py-2 bg-light text-dark" id="btnPlus" style="padding: 1px 80px 1px 80px;"
+                                    onclick="plus()"><i class="fa fa-plus"></i></button>
+                            </div>
+                            <span id="limitReach" class="ml-2" style="display: none;"></span>
+                        </div>
+                        <div>
+                            <p class="cost fs-4" style="color: green;"> ₹ <span id="price"></span></p>
+                        </div>
+
+
+
+
+                        <div  class="d-flex mt-4" >
+                                
+                                    <button class="btn btn-primary mb-4" type="button" style="background-color:aqua;"> <a href="index.html" role="button" class="btn btn-primary px-lg-5 px-4 py-2" style="text-decoration: none; color:black; font-weight:bold;">BACK</a></button>
+  
+
+
+                                    <button class="btn btn-primary mt-4" type="button" style="background-color:aqua;"><a href="addcart.html" role="button" class=" btn btn-danger px-lg-5 px-3 py-2" style="text-decoration: none; color:black; font-weight:bold;" onclick="addToCart()">ADDCART</a></button>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="./bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+<script>
+    var limit = localStorage.getItem('productLimit');
+    var price = localStorage.getItem('salesPrice');
+    var discountPrice = localStorage.getItem('discountPrice');
+    var currentPrice = price;
+    function getInfo() {
+
+        var limit = localStorage.getItem('productLimit')
+        console.log(limit);
+        document.getElementById('newProdTitle').innerHTML = localStorage.getItem('productTitle');
+        document.getElementById('newProdDesc').innerHTML = localStorage.getItem('productDescription');
+        document.getElementById('price').innerHTML = localStorage.getItem('salesPrice')
+        document.getElementById('originalPriceValue').innerHTML = localStorage.getItem('productprice');
+        document.getElementById('discountValue').innerHTML = price - discountPrice;
+        document.getElementById('offerPrecent').innerHTML = localStorage.getItem('productdiscount');
+
+        document.getElementById('prodCount').value = 1;
+        const imageDisplay = document.getElementById('prodImg');
+        const imageData = localStorage.getItem('imageData');
+        if (imageData) {
+            imageDisplay.src = imageData;
+        } else {
+            imageDisplay.src = './img/no_img.jpg'; // saved image data none.
+        }
+    }
+
+    getInfo()
+
+    function plus() {
+        var count = parseInt(document.getElementById('prodCount').value);
+        if (count < 10) {
+            document.getElementById('prodCount').value = ++count;
+            currentPrice = count * price;
+            document.getElementById('price').innerHTML = currentPrice;
+            document.getElementById('limitReach').style = "display:none;"
+        }
+        else{
+            document.getElementById('limitReach').innerHTML = "Reached Max Limit"
+            document.getElementById('limitReach').style = "display:block; color:red;"
+        }
+    }
+    function minus() {
+        var count = parseInt(document.getElementById('prodCount').value);
+        if (count > 1) {
+            document.getElementById('prodCount').value = --count;
+            currentPrice = currentPrice - price;
+            document.getElementById('price').innerHTML = currentPrice;
+            document.getElementById('limitReach').style = "display:none;"
+
+        }
+        else{
+            document.getElementById('limitReach').innerHTML = "Reached Min Limit"
+            document.getElementById('limitReach').style = "display:block; color:red;"
+        }
+    }
+//    Get the original price and discount percentage from localStorage
+// Get the original price and discount percentage from localStorage
+
+
+
+    function addToCart() {
+        console.log(currentPrice);
+        localStorage.setItem('currentPrice', currentPrice)
+        localStorage.setItem('count', document.getElementById('prodCount').value);
+
+    }
+</script>
